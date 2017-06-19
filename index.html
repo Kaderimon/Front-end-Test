@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="gemStore">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Front-end Test</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body ng-controller="StoreController as store">
+    <!--  Store Header  -->
+    <div id="wrapper">
+      <div class="container header">
+        <div class="row">
+          <div class="col-md-4 col-xs-4 header-wrap">
+           <img class="header__photo" src="img/photo.png" alt="">         
+          </div>
+          <div class="col-md-8 col-xs-8">
+            <h3 class="header__title">Вероника Ростова</h3>   
+            <p class="header__job">Менеджер по продажам</p>
+            <pre class="header__text">Подберу для вас самые лучшие предложения.
+Мои услуги абсолютно бесплатны</pre>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-offset-4 col-xs-offset-4 col-md-8 col-xs-8">
+            <div class="row">
+              <div class="col-md-offset-9 col-xs-offset-9 col-md-3 col-xs-3">
+                <p>Услуг</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-9 col-xs-9 services">
+                <p class="services__green">Ручное бронирование</p>
+                <p class="services__blue">Пакетные туры</p>
+                <p class="services__blue-small">Отели</p>
+              </div>
+              <div class="col-md-3 col-xs-3 services services-count">
+                <p>11</p>
+                <p>3</p>
+                <p>1</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-9 col-xs-9 services-total">
+                <p>Всего</p>
+              </div>
+              <div class="col-md-3 col-xs-3 services-total services-count">
+                <p>15</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+          <!-- Product Tabs  -->
+          <section ng-controller="TabController as tab">
+            <ul class="nav nav-pills">
+              <li ng-class="{ active:tab.isSet(1) }">
+                <a href ng-click="tab.setTab(1)">Последние отзывы</a>
+              </li>
+              <li ng-class="{ active:tab.isSet(2) }">
+                <a href ng-click="tab.setTab(2)">Все отзывы</a>
+              </li>
+              <li class="nav-pills__right" ng-class="{ active:tab.isSet(2) }">
+                <a href ng-click="tab.setTab(2)"><img src="img/comment.png" alt="">14</a>
+              </li>
+              <li class="nav-pills__right" ng-class="{ active:tab.isSet(2) }">
+                <a href ng-click="tab.setTab(2)"><img src="img/like.png" alt="">131</a>
+              </li>
+            </ul>
+            <div>
+              <!--  Reviews List -->
+              <ul>
+                <li ng-repeat="review in store.reviews">
+                  <div>
+                    <strong>{{review.author}}</strong>
+                    <span class="review__date">{{review.date}}</span>
+                    <p class="review__text">{{review.body}}</p>
+                  </div>
+                </li>  
+              </ul>
+
+              <!--  Review Form -->
+              <form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-keyup="$event.keyCode == 13 && $event.ctrlKey && reviewCtrl.addReview(store)" ng-submit="reviewCtrl.addReview(store)">
+                <fieldset class="form-group">
+                  <textarea ng-model="reviewCtrl.review.body" class="form-control" placeholder="Ваш отзыв..." title="Review"></textarea>
+                  <input ng-model="reviewCtrl.review.author" type="text" class="form-control" placeholder="Лилия Семеновна" title="Имя" />
+                  <input type="submit" class="btn form-group__btn" value="Написать консультанту" />
+                </fieldset>
+              </form>
+            </div>
+          </section>
+      </div>
+    </div>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+</body>
+</html>
